@@ -5,12 +5,23 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 
 from keyboards.reply_keyboards import show_menu
+from db.temp_database import database
 
 router = Router()
 
 @router.message(Command("start"))
 async def cmd_start(message: Message):
-    await message.answer("Добро пожаловать в Folder Bot")
+    user_id = message.from_user.id
+    if user_id in database: 
+        await message.answer(
+            text=f"С возвращением, {message.from_user.full_name}!",
+            reply_markup=show_menu())
+    else: 
+        database[user_id] = {}
+        await message.answer(
+            text=f"Добро пожаловать в Folder Bot, {message.from_user.full_name}!\n\nДля быстрого ознакомления введите команду /help или воспользуйтесь встроенным меню команд.",
+            reply_markup=show_menu())
+
 
 
 @router.message(Command("help"))
