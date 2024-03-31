@@ -3,14 +3,16 @@ import logging
 from aiogram import Bot, Dispatcher
 
 from config import load_config
-from handlers import greeting
+from handlers import greeting, new_entry
 
 dp = Dispatcher()
 
 async def main(): 
     config = load_config()
     bot = Bot(token=config.token)
-    dp.include_router(greeting.router)
+    dp.include_routers(
+        greeting.router,
+        new_entry.router)
 
     logging.basicConfig(
         level=logging.DEBUG, 
