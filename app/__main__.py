@@ -1,15 +1,18 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
+from aiogram.client.bot import DefaultBotProperties
 
-from config import load_config
+from config import get_settings
 from handlers import greeting, new_entry
 
-dp = Dispatcher()
 
 async def main(): 
-    config = load_config()
-    bot = Bot(token=config.token)
+    bot = Bot(
+        get_settings().bot.BOT_TOKEN.get_secret_value(),
+        default=DefaultBotProperties(parse_mode=get_settings().bot.PARSE_MODE)
+    )
+    dp = Dispatcher()
     dp.include_routers(
         greeting.router,
         new_entry.router)
