@@ -3,9 +3,11 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.bot import DefaultBotProperties
 
-from config import get_settings
-from handlers import greeting, new_entry
+from config import create_project_root
+create_project_root()
 
+from app.core import get_settings
+from app.handlers import greeting, new_entry
 
 async def main(): 
     bot = Bot(
@@ -22,7 +24,6 @@ async def main():
         filename="logs.log")
 
     await dp.start_polling(bot)
-    
 
 if __name__ == "__main__":
     asyncio.run(main())
