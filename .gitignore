@@ -3,6 +3,7 @@
 
 __pycache__
 .vscode
+.idea
 
 logs.log
 temp_database.py
