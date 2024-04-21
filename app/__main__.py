@@ -1,10 +1,7 @@
 import asyncio
-import logging
+import logging, sys
 from aiogram import Bot, Dispatcher
 from aiogram.client.bot import DefaultBotProperties
-
-from config import create_project_root
-create_project_root()
 
 from app.core import get_settings
 from app.handlers import greeting, new_entry
@@ -14,15 +11,13 @@ async def main():
         get_settings().bot.BOT_TOKEN.get_secret_value(),
         default=DefaultBotProperties(parse_mode=get_settings().bot.PARSE_MODE)
     )
+    
     dp = Dispatcher()
     dp.include_routers(
         greeting.router,
         new_entry.router)
 
-    logging.basicConfig(
-        level=logging.DEBUG, 
-        filename="logs.log")
-
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
