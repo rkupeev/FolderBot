@@ -5,10 +5,10 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.enums import ParseMode
 
-from keyboards.reply_keyboards import show_menu
-from filters.usertext_filter import UserTextFilter 
+from app.keyboards.reply_keyboards import show_menu
+from app.filters.usertext_filter import UserTextFilter 
 
-from db.temp_database import database
+from app.db.temp_database import database
 
 
 router = Router()
