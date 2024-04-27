@@ -6,17 +6,17 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import DirectoryPath, SecretStr
 
 
-ROOT_DIR: DirectoryPath = Path(__file__).parent.parent
+#ROOT_DIR: DirectoryPath = Path(__file__).parent.parent
 
 
 class BotSettings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=f'{ROOT_DIR}/.env')
-    BOT_TOKEN : SecretStr
+    model_config = SettingsConfigDict(env_file=f'/.env')
+    BOT_TOKEN: SecretStr
     PARSE_MODE: ParseMode | str = ParseMode.HTML
 
 
 class DatabaseSettings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=f'{ROOT_DIR}/.env')
+    model_config = SettingsConfigDict(env_file=f'/.env')
     DB_HOST: str
     DB_PORT: int
     DB_USER: str
