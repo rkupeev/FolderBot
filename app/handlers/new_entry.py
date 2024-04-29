@@ -6,7 +6,7 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.enums import ParseMode
 
 from app.keyboards.reply_keyboards import show_menu
-from app.filters.usertext_filter import UserTextFilter 
+from app.filters.usertext_filter import ContentFilter 
 
 from app.db.temp_database import database
 
