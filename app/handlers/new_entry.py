@@ -6,7 +6,7 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.enums import ParseMode
 
 from keyboards.reply_keyboards import show_menu
-from filters.usertext_filter import UserTextFilter 
+from filters.usertext_filter import ContentFilter
 
 from db.temp_database import database
 
@@ -36,11 +36,27 @@ async def any_chosen_cancel(message: Message, state: FSMContext):
         reply_markup=show_menu())
 
 
-@router.message(CreateNote.choosing_heading, UserTextFilter())
+@router.message(CreateNote.choosing_heading, Command("profile"))
+@router.message(CreateNote.choosing_note, Command("profile"))
+async def busy_state(message: Message):
+    await message.answer(
+        text="⚠️ Вы не можете получить доступ к профилю во время создания записи. Завершите процесс создания или отмените его с помощью команды /cancel."
+    )
+
+
+@router.message(CreateNote.choosing_heading, Command("storage"))
+@router.message(CreateNote.choosing_note, Command("storage"))
+async def busy_state(message: Message):
+    await message.answer(
+        text="⚠️ Вы не можете получить доступ к хранилищу во время создания записи. Завершите процесс создания или отмените его с помощью команды /cancel."
+    )
+
+@router.message(CreateNote.choosing_heading, 
+                ContentFilter())
 async def heading_chosen(message: Message, state: FSMContext):
     await state.update_data(chose_heading=message.text)
     await message.answer(
-        text='''2️⃣ Теперь введите запись (<i>учтите, что в Telegram присутствует ограничение по количеству символов в одном сообщении</i>); \nДля отмены создания записи введите /cancel''', parse_mode=ParseMode.HTML)
+        text='''2️⃣ Теперь введите запись (<i>учтите, что в Telegram присутствует ограничение по количеству символов в одном сообщении</i>). Началом записи должна быть буква или цифра; \nДля отмены создания записи введите /cancel''', parse_mode=ParseMode.HTML)
     await state.set_state(CreateNote.choosing_note)
 
 
@@ -69,10 +85,9 @@ async def cmd_cancel_no_state(message: Message, state: FSMContext):
         reply_markup=ReplyKeyboardRemove()
     )
 
-
 @router.message(CreateNote.choosing_heading)
-async def heading_chosen_incorrectly(message: Message):
+async def chosen_incorrectly(message: Message):
     await message.answer(
-        text="⚠️ Этот заголовок не начинается ни с буквы, ни с цифры. Попробуйте снова или отмените создание записи: /cancel")
+        text='⚠️ Заголовок не начинается ни с буквы, ни с цифры. Попробуйте снова или отмените создание записи: /cancel')
 
     
