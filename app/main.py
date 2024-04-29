@@ -4,7 +4,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.bot import DefaultBotProperties
 
 from app.core import get_settings
-from app.handlers import greeting, new_entry
+from app.handlers import greeting, new_entry, profile, storage
 
 async def main(): 
     bot = Bot(
@@ -15,7 +15,9 @@ async def main():
     dp = Dispatcher()
     dp.include_routers(
         greeting.router,
-        new_entry.router)
+        new_entry.router,
+        profile.router,
+        storage.router)
 
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     await dp.start_polling(bot)
