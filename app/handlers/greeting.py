@@ -4,8 +4,8 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 
-from keyboards.reply_keyboards import show_menu
-from db.temp_database import database
+from app.keyboards.reply_keyboards import show_menu
+from app.db.temp_database import database
 
 router = Router()
 
