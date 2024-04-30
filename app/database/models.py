@@ -1,35 +1,12 @@
 import asyncio
 from sqlalchemy import MetaData, Table, Integer, String, Column, ForeignKey, DateTime, Text
 from sqlalchemy.ext.declarative import declarative_base 
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from datetime import datetime
 
-from app.core import get_settings
-
-metadata = MetaData()
-
-async def async_main():
-    engine = create_async_engine(
-        get_settings().database.DATABASE_URL_asyncpg
-        )
-    async with engine.begin() as conn:
-        await conn.run_sync(metadata.drop_all)
-        await conn.run_sync(metadata.create_all)
-
-asyncio.run(async_main())
+from app.database.connection import async_main
 
 
-
-
-
-
-
-
-
-
-
-
-'''Base = declarative_base()
+Base = declarative_base()
 
 class Users(Base):
     __tablename__ = 'users'
@@ -43,4 +20,7 @@ class Entries(Base):
     entry_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
     heading = Column(Text(128), nullable=False)
-    entry = Column(Text(2048), nullable=False)'''
+    entry = Column(Text(2048), nullable=False)
+
+
+#asyncio.run(async_main())
