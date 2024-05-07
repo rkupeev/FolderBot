@@ -1,12 +1,12 @@
-import asyncio
-from sqlalchemy import MetaData, Table, Integer, String, Column, ForeignKey, DateTime, Text
-from sqlalchemy.ext.declarative import declarative_base 
+#import asyncio
+from sqlalchemy import MetaData, Table, Integer, String, Column, ForeignKey, DateTime, CHAR
+from sqlalchemy.orm import declarative_base 
 from datetime import datetime
 
-from app.database.connection import async_main
-
-
 Base = declarative_base()
+metadata = MetaData()
+Base.metadata = metadata
+
 
 class Users(Base):
     __tablename__ = 'users'
@@ -19,8 +19,6 @@ class Entries(Base):
     __tablename__ = 'entries'
     entry_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"))
-    heading = Column(Text(128), nullable=False)
-    entry = Column(Text(2048), nullable=False)
+    heading = Column(CHAR(128), nullable=False)
+    entry = Column(CHAR(2048), nullable=False)
 
-
-#asyncio.run(async_main())
