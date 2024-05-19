@@ -56,7 +56,7 @@ async def busy_state(message: Message):
 async def heading_chosen(message: Message, state: FSMContext):
     await state.update_data(chose_heading=message.text)
     await message.answer(
-        text='''2️⃣ Теперь введите запись (<i>учтите, что в Telegram присутствует ограничение по количеству символов в одном сообщении</i>). Началом записи должна быть буква или цифра; \nДля отмены создания записи введите /cancel''', parse_mode=ParseMode.HTML)
+        text='''2️⃣ Теперь введите запись (<i>учтите, что в Telegram присутствует ограничение по количеству символов в одном сообщении</i>); \nДля отмены создания записи введите /cancel.''', parse_mode=ParseMode.HTML)
     await state.set_state(CreateNote.choosing_note)
 
 
