@@ -1,4 +1,7 @@
 .venv
 .vscode
 
+temp_database.py
+
+__pycache__
 .env
