@@ -5,7 +5,6 @@ from aiogram.fsm.context import FSMContext
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from app.database.connection import async_session_maker
 
 from app.database.models import Users
 from app.database.connection import connection
