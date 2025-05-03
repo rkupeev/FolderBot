@@ -4,14 +4,13 @@ import logging, sys
 from aiogram import Bot, Dispatcher
 from aiogram.client.bot import DefaultBotProperties
 
-from app.core.settings import get_settings
+from app.core.settings import settings
 from app.handlers.users.routers import user_router
 
 dp = Dispatcher()
 
 
 async def main():
-    settings = get_settings()
     bot = Bot(token=settings.bot.BOT_TOKEN.get_secret_value(), 
               default=DefaultBotProperties(parse_mode=settings.bot.PARSE_MOD)
               )
