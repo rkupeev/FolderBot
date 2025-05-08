@@ -29,7 +29,7 @@ class Entities(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     title: Mapped[str] = mapped_column(String(255), nullable=False)
-    content: Mapped[str] = mapped_column(Text, nullable=False)
+    content: Mapped[str] = mapped_column(String(2048), nullable=False)
     created_at: Mapped[DateTime] = mapped_column(DateTime, default=datetime.now())
     
     users: Mapped["Users"] = relationship("Users", back_populates="entities")
