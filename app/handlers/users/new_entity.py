@@ -68,8 +68,8 @@ async def ending_of_adding(message: Message, state: FSMContext):
  
 
 @entity_router.message(F.text == '❌ Отмена')
-@entity_router.message(NoteState.content_state, Command("cancel"))
 @entity_router.message(NoteState.title_state, Command("cancel"))
+@entity_router.message(NoteState.content_state, Command("cancel"))
 async def cmd_help(message: Message, state: FSMContext):
     await state.clear() 
     await message.answer(
