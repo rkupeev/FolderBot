@@ -49,8 +49,7 @@ async def cmd_profile(message: Message, state: FSMContext, session: AsyncSession
     query = await session.execute(
         select(func.count(Entities.id)).join(Users).where(Users.telegram_id == message.from_user.id)
     )
-    records = query.scalars().all()
-    records_num = len(records)
+    records_num = query.scalar() or 0
 
     await message.answer(
         text=f"Профиль пользователя {message.from_user.full_name}:\n\n<b>📅 Дата регистрации в боте:</b> {added_at}\n<b>*️⃣ Количество записей</b>: {records_num}"
